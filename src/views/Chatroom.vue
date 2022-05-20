@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Navbar @logout='exitChat' />
+    <Navbar />
   </div>
 </template>
 
@@ -8,18 +8,20 @@
 
 import Navbar from '../components/Navbar.vue'
 import { useRouter } from 'vue-router'
+import getUser from '@/composables/getUser'
+import { watch } from '@vue/runtime-core'
 
 export default {
   components: { Navbar },
   setup() {
-    
+    const { user } = getUser()
     const router = useRouter()
 
-    const exitChat = () => {
-      router.push({ name: 'Welcome' })
-    }
-
-    return { exitChat }
+    watch(user, () => {
+      if (!user.value) {
+        router.push({ name: 'Welcome' })
+      }
+    })
   }
   
 }

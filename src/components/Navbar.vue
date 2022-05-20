@@ -13,14 +13,14 @@ import useLogout from '../composables/useLogout'
 import getUser from '../composables/getUser'
 
 export default {
-  setup(props, context) {
+  setup() {
     const { logout, error } = useLogout()
     const { user } = getUser()
 
     const handleClick = async () => {
       await logout()
       if (!error.value) {
-        context.emit('logout')
+        console.log('logout')
       }
     }
 
