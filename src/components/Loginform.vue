@@ -1,9 +1,10 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <input type="email" required placeholder="email" v-model="email">
-    <input type="password" required placeholder="password" v-model="password">
+    <input :type="passwordType" required placeholder="password" v-model="password">
     <div class="error">{{ error }}</div>
     <button>Log in</button>
+    <button @click.prevent="handlePassword">show password</button>
   </form>
 </template>
 
@@ -25,7 +26,21 @@ export default {
       }
     }
 
-    return { email, password, handleSubmit, error }
+    
+    let passwordType = ref('')
+    let showPassword = ref(false)
+
+    const handlePassword = () =>{
+      showPassword = !showPassword
+      if(!showPassword) {
+        passwordType.value = "text"
+      } else {
+        passwordType.value = "password"
+      }
+    }
+
+
+    return { email, password, handleSubmit, error, handlePassword, showPassword, passwordType }
   }
   
 }
